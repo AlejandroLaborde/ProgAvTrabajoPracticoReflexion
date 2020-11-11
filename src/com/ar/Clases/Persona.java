@@ -1,4 +1,4 @@
-package aa;
+package com.ar.Clases;
 
 import com.ar.Anotaciones.Columna;
 import com.ar.Anotaciones.Id;
@@ -8,8 +8,11 @@ import com.ar.Anotaciones.Tabla;
 public class Persona  {
 	
 	@Id
+	@Columna(nombre = "id")
+	public Integer id;
+
 	@Columna(nombre = "dni")
-	public Number dni;
+	public Integer dni;
 	
 	@Columna(nombre = "nombre")
 	public String nombre;
@@ -18,15 +21,23 @@ public class Persona  {
 	public String apellido;
 	
 	@Columna(nombre = "edad")
-	public Number edad;
+	public Integer edad;
 	
 	
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Number getDni() {
 		return dni;
 	}
 
-	public void setDni(Number dni) {
+	public void setDni(Integer dni) {
 		this.dni = dni;
 	}
 
@@ -43,11 +54,11 @@ public class Persona  {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-	public Number getEdad() {
+	public Integer getEdad() {
 		return edad;
 	}
 	
-	public void setEdad(Number edad) {
+	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
 	
@@ -55,7 +66,7 @@ public class Persona  {
 	@Override
 	public String toString() {
 	
-		return this.nombre + " " + this.apellido + " " + this.edad;
+		return this.id + " " +this.nombre + " " + this.apellido + " " + this.edad;
 	}
 
 	

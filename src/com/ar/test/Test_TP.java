@@ -10,10 +10,9 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import com.ar.Clases.*;
 import com.ar.Servicios.Consultas;
 import com.ar.Utilidades.UBean;
-
-import aa.*;
 
 class Test_TP {
 
@@ -21,7 +20,7 @@ class Test_TP {
 	void test1_validaUtilidades_obtenerAtributos() {
 		Persona p = new Persona();
 		 ArrayList<Field> fields = UBean.obtenerAtributos(p);
-		assertEquals("apellido", fields.get(2).getName());
+		assertEquals("apellido", fields.get(3).getName());
 	}
 	
 	@Test
@@ -96,9 +95,39 @@ class Test_TP {
 		p.apellido = "laborde";
 		p.dni=38834224;
 		p.edad = 25;
+		p.id =1;
 		
 		Consultas.guardar(p);
 		Consultas.eliminar(p);
+			
+	}
+	
+	@Test
+	void test8_validaServicios_Update() {
+		Persona p = new Persona();
+		p.nombre = "alejandro";
+		p.apellido = "laborde";
+		p.dni=38834224;
+		p.edad = 25;
+		p.id =5;
+
+		p.apellido = "LABORDE";
+		Consultas.modificar(p);
+			
+	}
+	
+	@Test
+	void test8_validaServicios_recuperarPorId() {
+		Persona p = new Persona();
+		p.nombre = "alejandro";
+		p.apellido = "laborde";
+		p.dni=38834224;
+		p.edad = 25;
+		p.id =1;
+		
+	
+		Object instanca = Consultas.obtenerPorId(Persona.class,2);
+		System.out.println(instanca.toString());
 			
 	}
 

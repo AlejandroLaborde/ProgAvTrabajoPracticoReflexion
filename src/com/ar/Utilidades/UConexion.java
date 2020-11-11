@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.ar.Properties.ConfiguradorPropiedades;
+
 public class UConexion {
 	
 	private static UConexion instancia;
@@ -17,15 +19,21 @@ public class UConexion {
 	private Connection con=null;
 	
 	private UConexion() {
-		System.out.println("Entro constructor");
-		this.driver = "com.mysql.jdbc.Driver";
-		this.pathConection = "jdbc:mysql://localhost:3306/test";
-		this.user= "root";
-		this.pass="";
+//		this.driver = "com.mysql.jdbc.Driver";
+//		this.pathConection = "jdbc:mysql://localhost:3306/test";
+//		this.user= "root";
+//		this.pass="";
+//		driver = com.mysql.jdbc.Driver
+//		pathConection = jdbc:mysql://localhost:3306/test
+//		user= root
+//		pass=
+		this.driver = ConfiguradorPropiedades.getPropiedad("driver");
+		this.pathConection = ConfiguradorPropiedades.getPropiedad("pathConection");
+		this.user= ConfiguradorPropiedades.getPropiedad("user");
+		this.pass=ConfiguradorPropiedades.getPropiedad("pass");
 		
 		if( this.con == null ) {
 			try {
-				
 				this.crearConexion();
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
