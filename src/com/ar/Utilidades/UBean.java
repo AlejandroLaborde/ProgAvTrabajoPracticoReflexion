@@ -1,10 +1,12 @@
 package com.ar.Utilidades;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class UBean {
 	
@@ -26,6 +28,7 @@ public class UBean {
 		
 		Class c = o.getClass();
 		Method[] methods = c.getMethods();
+		 
 		for (Method method : methods) {
 			if( method.getName().equalsIgnoreCase("set"+ att)) {
 				Object[] ob = new Object[1];

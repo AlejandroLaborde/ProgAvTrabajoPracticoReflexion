@@ -1,14 +1,39 @@
 package aa;
 
+import com.ar.Anotaciones.Columna;
+import com.ar.Anotaciones.Id;
+import com.ar.Anotaciones.Tabla;
 
-public class Persona {
+@Tabla(nombre = "Personas")
+public class Persona  {
+	
+	@Id
+	@Columna(nombre = "dni")
+	public Number dni;
+	
+	@Columna(nombre = "nombre")
 	public String nombre;
+	
+	@Columna(nombre = "apellido")
 	public String apellido;
+	
+	@Columna(nombre = "edad")
 	public Number edad;
 	
+	
+	
+	public Number getDni() {
+		return dni;
+	}
+
+	public void setDni(Number dni) {
+		this.dni = dni;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -21,6 +46,7 @@ public class Persona {
 	public Number getEdad() {
 		return edad;
 	}
+	
 	public void setEdad(Number edad) {
 		this.edad = edad;
 	}
@@ -31,5 +57,7 @@ public class Persona {
 	
 		return this.nombre + " " + this.apellido + " " + this.edad;
 	}
+
+	
 	
 }

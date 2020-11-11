@@ -21,7 +21,7 @@ class Test_TP {
 	void test1_validaUtilidades_obtenerAtributos() {
 		Persona p = new Persona();
 		 ArrayList<Field> fields = UBean.obtenerAtributos(p);
-		assertEquals("apellido", fields.get(1).getName());
+		assertEquals("apellido", fields.get(2).getName());
 	}
 	
 	@Test
@@ -80,11 +80,26 @@ class Test_TP {
 		Persona p = new Persona();
 		p.nombre = "alejandro";
 		p.apellido = "laborde";
+		p.dni=38834224;
 		p.edad = 25;
 		
 		Consultas.guardar(p);
 		
 		
+	}
+	
+
+	@Test
+	void test7_validaServicios_eliminar() {
+		Persona p = new Persona();
+		p.nombre = "alejandro";
+		p.apellido = "laborde";
+		p.dni=38834224;
+		p.edad = 25;
+		
+		Consultas.guardar(p);
+		Consultas.eliminar(p);
+			
 	}
 
 }
