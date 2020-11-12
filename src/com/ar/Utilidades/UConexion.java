@@ -23,10 +23,7 @@ public class UConexion {
 //		this.pathConection = "jdbc:mysql://localhost:3306/test";
 //		this.user= "root";
 //		this.pass="";
-//		driver = com.mysql.jdbc.Driver
-//		pathConection = jdbc:mysql://localhost:3306/test
-//		user= root
-//		pass=
+
 		this.driver = ConfiguradorPropiedades.getPropiedad("driver");
 		this.pathConection = ConfiguradorPropiedades.getPropiedad("pathConection");
 		this.user= ConfiguradorPropiedades.getPropiedad("user");
@@ -36,14 +33,10 @@ public class UConexion {
 			try {
 				this.crearConexion();
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else {
-			
 		}
 	}
 	

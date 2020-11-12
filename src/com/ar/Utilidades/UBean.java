@@ -25,10 +25,10 @@ public class UBean {
 	}
 	
 	public static void ejecutarSet(Object o, String att, Object valor) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
-		
+
 		Class c = o.getClass();
 		Method[] methods = c.getMethods();
-		 
+		
 		for (Method method : methods) {
 			if( method.getName().equalsIgnoreCase("set"+ att)) {
 				Object[] ob = new Object[1];
@@ -36,8 +36,6 @@ public class UBean {
 				method.invoke(o, ob);
 			}
 		}
-		
-		
 	}
 	
 	public static Object ejecutarGet(Object o, String att) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
