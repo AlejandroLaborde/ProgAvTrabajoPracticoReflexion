@@ -15,7 +15,7 @@ import com.ar.Utilidades.UConexion;
 
 public class Consultas {
 	
-	public static void guardar( Object obj ) {
+	public static Object guardar( Object obj ) {
 		
 		 ArrayList<Field> fields = UBean.obtenerAtributos(obj);
 		 
@@ -90,6 +90,7 @@ public class Consultas {
 			e.printStackTrace();
 		}
 		
+		return Consultas.ObtenerUltimoRegistroAgregado(obj.getClass());
 	}
 
 	
@@ -261,4 +262,126 @@ public class Consultas {
 		
 		return instancia;
 	}
+	
+	public static Object ObtenerUltimoRegistroAgregado(Class c) {
+		
+		Annotation anotacion = c.getAnnotation(Tabla.class);
+		Field[] fields2 = c.getFields();
+		Constructor constructor = null;
+		Object instancia = null;
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT * FROM ");
+		sb.append(((com.ar.Anotaciones.Tabla)anotacion).nombre());
+		sb.append(" ORDER BY ");
+	
+		 for (int i = 0; i < fields2.length; i++) {
+			 try {
+				 	Id id2 = fields2[i].getAnnotation(Id.class);
+				 	if(id2!=null) {
+				 		sb.append(fields2[i].getName());
+				 	}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		 }
+		 sb.append(" DESC LIMIT 1");
+		
+		 
+		try {
+			System.out.println(sb.toString());
+			UConexion uconexion = UConexion.getInstance();
+			PreparedStatement ps = uconexion.getCon().prepareStatement(sb.toString());
+			ResultSet resp = ps.executeQuery();
+			
+			while(resp.next()) {
+			
+				 constructor = c.getConstructor( null );
+				 instancia = constructor.newInstance( null );
+				 ArrayList<Field> fields = UBean.obtenerAtributos(instancia);
+				 for (int i = 0; i < fields.size(); i++) {
+					  Columna columna = fields.get(i).getAnnotation(Columna.class);
+					  if( columna!=null ) {
+						  UBean.ejecutarSet(instancia, fields.get(i).getName(), resp.getObject(columna.nombre(), fields.get(i).getType()) );
+					  }		
+				 }
+			}
+			
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		return instancia;
+	}
+	
+	public static void  guardarModificar(Object obj) {
+		
+		Field[] fields2 = obj.getClass().getFields();
+		Object nameId = null;
+		System.out.println(1);
+		for (int i = 0; i < fields2.length; i++) {
+			 try {
+				 	Id id2 = fields2[i].getAnnotation(Id.class);
+				 	if(id2!=null) {
+				 	  nameId = UBean.ejecutarGet(obj, fields2[i].getName());
+				 	}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		 }
+		System.out.println(1);
+	 
+	   if( nameId==null || Consultas.obtenerPorId(obj.getClass(), nameId) == null){
+			System.out.println(1);
+		   Consultas.guardar(obj);	
+			System.out.println(1);
+	   }else {
+			System.out.println(2);
+		   Consultas.modificar(obj);
+	   }
+	}
+	
+	
+	public static ArrayList<Object> obtenerTodos(Class c) {
+		
+		Annotation anotacion = c.getAnnotation(Tabla.class);
+		Field[] fields2 = c.getFields();
+		Constructor constructor = null;
+	
+		ArrayList<Object> lista = new ArrayList<Object>();
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT * FROM ");
+		sb.append(((com.ar.Anotaciones.Tabla)anotacion).nombre());
+				
+		 
+		try {
+			System.out.println(sb.toString());
+			UConexion uconexion = UConexion.getInstance();
+			PreparedStatement ps = uconexion.getCon().prepareStatement(sb.toString());
+			ResultSet resp = ps.executeQuery();
+			
+			while(resp.next()) {
+			
+				 constructor = c.getConstructor( null );
+				 Object instancia = null;instancia = constructor.newInstance( null );
+				 ArrayList<Field> fields = UBean.obtenerAtributos(instancia);
+				 for (int i = 0; i < fields.size(); i++) {
+					  Columna columna = fields.get(i).getAnnotation(Columna.class);
+					  if( columna!=null ) {
+						  UBean.ejecutarSet(instancia, fields.get(i).getName(), resp.getObject(columna.nombre(), fields.get(i).getType()) );
+					  }		
+				 }
+				 lista.add(instancia);
+			}
+			
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		return lista;
+	}
+	
+	
+	
 }

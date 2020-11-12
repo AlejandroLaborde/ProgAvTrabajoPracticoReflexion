@@ -82,8 +82,8 @@ class Test_TP {
 		p.dni=38834224;
 		p.edad = 25;
 		
-		Consultas.guardar(p);
-		
+		 Object resp = Consultas.guardar(p);
+		 System.out.println(resp.toString());
 		
 	}
 	
@@ -117,7 +117,7 @@ class Test_TP {
 	}
 	
 	@Test
-	void test8_validaServicios_recuperarPorId() {
+	void test9_validaServicios_recuperarPorId() {
 		Persona p = new Persona();
 		p.nombre = "alejandro";
 		p.apellido = "laborde";
@@ -128,6 +128,53 @@ class Test_TP {
 	
 		Object instanca = Consultas.obtenerPorId(Persona.class,2);
 		System.out.println(instanca.toString());
+			
+	}
+	
+	@Test
+	void test10_validaServicios_obtenerUlmimoRegistroAgregado() {
+		Persona p = new Persona();
+		p.nombre = "alejandro";
+		p.apellido = "laborde";
+		p.dni=38834224;
+		p.edad = 25;
+		p.id =1;
+		
+	
+		Object instanca = Consultas.ObtenerUltimoRegistroAgregado(Persona.class);
+		System.out.println(instanca.toString());
+			
+	}
+	
+	@Test
+	void test11_validaServicios_guardarModificar() {
+		Persona p = new Persona();
+		p.nombre = "aLejandro Fabian";
+		p.apellido = "laborde";
+		p.dni=38834224;
+		p.edad = 25;
+		p.id =2777;
+		
+	
+		Consultas.guardarModificar(p);
+		
+			
+	}
+	
+	@Test
+	void test12_validaServicios_obtenerTodos() {
+		Persona p = new Persona();
+		p.nombre = "aLejandro Fabian";
+		p.apellido = "laborde";
+		p.dni=38834224;
+		p.edad = 25;
+		p.id =2777;
+		
+	
+		 ArrayList<Object> asd = Consultas.obtenerTodos(Persona.class);
+		 for (Object object : asd) {
+			System.out.println(object);
+		}
 			
 	}
 
