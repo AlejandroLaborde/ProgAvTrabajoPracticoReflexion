@@ -19,11 +19,8 @@ public class UConexion {
 	private Connection con=null;
 	
 	private UConexion() {
-//		this.driver = "com.mysql.jdbc.Driver";
-//		this.pathConection = "jdbc:mysql://localhost:3306/test";
-//		this.user= "root";
-//		this.pass="";
 
+		//"C:/JavaConfig/config/framework.properties"
 		this.driver = ConfiguradorPropiedades.getPropiedad("driver");
 		this.pathConection = ConfiguradorPropiedades.getPropiedad("pathConection");
 		this.user= ConfiguradorPropiedades.getPropiedad("user");

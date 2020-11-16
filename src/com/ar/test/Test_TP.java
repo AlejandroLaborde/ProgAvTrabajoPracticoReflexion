@@ -83,7 +83,8 @@ class Test_TP {
 		p.edad = 25;
 		
 		 Object resp = Consultas.guardar(p);
-		 System.out.println(resp.toString());
+		 Persona person = (Persona) resp;
+		 assertTrue(person.id!= null);
 		
 	}
 	
@@ -97,9 +98,10 @@ class Test_TP {
 		p.edad = 25;
 		p.id =1;
 		
-		Consultas.guardar(p);
+		p= (Persona) Consultas.guardar(p);
 		Consultas.eliminar(p);
-			
+		//Comparo contra null, porque no deberia traer un objeto que elimino ya
+		assertTrue(Consultas.obtenerPorId(Persona.class,p.getId())==null);
 	}
 	
 	@Test
@@ -110,10 +112,13 @@ class Test_TP {
 		p.dni=38834224;
 		p.edad = 25;
 		p.id =5;
-
+		//cambio apellido
 		p.apellido = "LABORDE";
 		Consultas.modificar(p);
-			
+		
+		Persona pModificada = (Persona) Consultas.obtenerPorId(Persona.class,p.getId());
+		assertEquals("LABORDE", pModificada.getApellido());
+		
 	}
 	
 	@Test
@@ -123,11 +128,10 @@ class Test_TP {
 		p.apellido = "laborde";
 		p.dni=38834224;
 		p.edad = 25;
-		p.id =1;
 		
-	
-		Object instanca = Consultas.obtenerPorId(Persona.class,2);
-		System.out.println(instanca.toString());
+		p= (Persona) Consultas.guardar(p);
+		Object instanca = Consultas.obtenerPorId(Persona.class,p.getId());
+		assertEquals(p, (Persona)instanca);
 			
 	}
 	
@@ -139,15 +143,14 @@ class Test_TP {
 		p.dni=38834224;
 		p.edad = 25;
 		p.id =1;
-		
-	
-		Object instanca = Consultas.ObtenerUltimoRegistroAgregado(Persona.class);
-		System.out.println(instanca.toString());
+		p= (Persona) Consultas.guardar(p);
+		Persona instanca = (Persona) Consultas.ObtenerUltimoRegistroAgregado(Persona.class);
+		assertEquals(p, (Persona)instanca);
 			
 	}
-	
+		
 	@Test
-	void test11_validaServicios_guardarModificar() {
+	void test11_validaServicios_obtenerTodos() {
 		Persona p = new Persona();
 		p.nombre = "aLejandro Fabian";
 		p.apellido = "laborde";
@@ -155,26 +158,9 @@ class Test_TP {
 		p.edad = 25;
 		p.id =2777;
 		
-	
-		Consultas.guardarModificar(p);
+	    ArrayList<Object> asd = Consultas.obtenerTodos(Persona.class);
+	    assertTrue(asd.size()>0);
 		
-			
-	}
-	
-	@Test
-	void test12_validaServicios_obtenerTodos() {
-		Persona p = new Persona();
-		p.nombre = "aLejandro Fabian";
-		p.apellido = "laborde";
-		p.dni=38834224;
-		p.edad = 25;
-		p.id =2777;
-		
-	
-		 ArrayList<Object> asd = Consultas.obtenerTodos(Persona.class);
-		 for (Object object : asd) {
-			System.out.println(object);
-		}
 			
 	}
 

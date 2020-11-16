@@ -69,5 +69,11 @@ public class Persona  {
 	}
 
 	
+	@Override
+	public boolean equals(Object obj) {
+		Persona  p = (Persona)obj;
+		return p.getId().equals(this.id);
+	}
+	
 	
 }

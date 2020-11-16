@@ -80,7 +80,6 @@ public class Consultas {
 		 sb.append(");");
 		
 		try {
-			 System.out.println(sb.toString());
 			 UConexion uconexion = UConexion.getInstance();
 			 PreparedStatement ps = uconexion.getCon().prepareStatement(sb.toString());
 			 ps.execute();
@@ -107,7 +106,6 @@ public class Consultas {
 				 	if(id!=null) {
 				 		sb.append(fields.get(i).getName());
 				 		sb.append("=");
-				 		
 			 			if( fields.get(i).getType().equals(String.class) ) {
 				 			sb.append("'");
 				 			sb.append(UBean.ejecutarGet(obj, fields.get(i).getName()));
@@ -123,12 +121,9 @@ public class Consultas {
 		 }
 		 sb.append(";");
 		try {
-			 System.out.println(sb.toString());
 			 UConexion uconexion = UConexion.getInstance();
 			 PreparedStatement ps = uconexion.getCon().prepareStatement(sb.toString());
 			 ps.execute();
-
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -142,7 +137,6 @@ public class Consultas {
 		 sb.append("UPDATE ");
 		 sb.append(obj.getClass().getAnnotation(Tabla.class).nombre());
 		 sb.append(" SET ");
-		 
 		 for (int i = 0; i < fields.size(); i++) {
 			 try {
 				  Annotation[] anotaciones = fields.get(i).getAnnotations();
@@ -178,13 +172,11 @@ public class Consultas {
 				 	if(id!=null) {
 				 		sb.append(fields.get(i).getName());
 				 		sb.append("=");
-				 		
 			 			if( fields.get(i).getType().equals(String.class) ) {
 				 			sb.append("'");
 				 			sb.append(UBean.ejecutarGet(obj, fields.get(i).getName()));
 				 			sb.append("'");
 				 		}else {
-				 			System.out.println(UBean.ejecutarGet(obj, fields.get(i).getName()));
 				 			sb.append(UBean.ejecutarGet(obj, fields.get(i).getName())+" ");
 				 		}
 				 	}
@@ -194,11 +186,9 @@ public class Consultas {
 		 }
 		
 		try {
-			 System.out.println(sb.toString());
 			 UConexion uconexion = UConexion.getInstance();
 			 PreparedStatement ps = uconexion.getCon().prepareStatement(sb.toString());
 			 ps.execute();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -238,7 +228,6 @@ public class Consultas {
 		
 		 
 		try {
-			System.out.println(sb.toString());
 			UConexion uconexion = UConexion.getInstance();
 			PreparedStatement ps = uconexion.getCon().prepareStatement(sb.toString());
 			ResultSet resp = ps.executeQuery();
@@ -289,7 +278,6 @@ public class Consultas {
 		
 		 
 		try {
-			System.out.println(sb.toString());
 			UConexion uconexion = UConexion.getInstance();
 			PreparedStatement ps = uconexion.getCon().prepareStatement(sb.toString());
 			ResultSet resp = ps.executeQuery();
@@ -318,7 +306,6 @@ public class Consultas {
 		
 		Field[] fields2 = obj.getClass().getFields();
 		Object nameId = null;
-		System.out.println(1);
 		for (int i = 0; i < fields2.length; i++) {
 			 try {
 				 	Id id2 = fields2[i].getAnnotation(Id.class);
@@ -329,14 +316,10 @@ public class Consultas {
 					e.printStackTrace();
 				}
 		 }
-		System.out.println(1);
 	 
 	   if( nameId==null || Consultas.obtenerPorId(obj.getClass(), nameId) == null){
-			System.out.println(1);
 		   Consultas.guardar(obj);	
-			System.out.println(1);
 	   }else {
-			System.out.println(2);
 		   Consultas.modificar(obj);
 	   }
 	}
@@ -347,7 +330,6 @@ public class Consultas {
 		Annotation anotacion = c.getAnnotation(Tabla.class);
 		Field[] fields2 = c.getFields();
 		Constructor constructor = null;
-	
 		ArrayList<Object> lista = new ArrayList<Object>();
 
 		StringBuilder sb = new StringBuilder();
@@ -356,7 +338,6 @@ public class Consultas {
 				
 		 
 		try {
-			System.out.println(sb.toString());
 			UConexion uconexion = UConexion.getInstance();
 			PreparedStatement ps = uconexion.getCon().prepareStatement(sb.toString());
 			ResultSet resp = ps.executeQuery();

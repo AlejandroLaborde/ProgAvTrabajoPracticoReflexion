@@ -14,7 +14,6 @@ public class UBean {
 	public static ArrayList<Field> obtenerAtributos(Object obj){
 		
 		ArrayList<Field> listaField = new ArrayList<Field>();
-		
 		Class c = obj.getClass();
 		Field[] fields = c.getFields();
 		for (Field field : fields) {
@@ -28,7 +27,6 @@ public class UBean {
 
 		Class c = o.getClass();
 		Method[] methods = c.getMethods();
-		
 		for (Method method : methods) {
 			if( method.getName().equalsIgnoreCase("set"+ att)) {
 				Object[] ob = new Object[1];
